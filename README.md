@@ -1,2 +1,209 @@
-# Career-Application-Portal-EC2-DynamoDB
-A full-stack job/career application form built with HTML/CSS, Node.js/Express, and AWS DynamoDB, hosted on an EC2 instance. This project demonstrates a real-world serverless-data-backed web app using core AWS services and secure, credential-free access via IAM Roles.
+
+# Career Application Portal — EC2 + DynamoDB
+
+A full-stack job/career application form built with **HTML/CSS**, **Node.js/Express**, and **AWS DynamoDB**, hosted on an **EC2** instance. This project demonstrates a real-world serverless-data-backed web app using core AWS services and secure, credential-free access via IAM Roles.
+
+---
+
+## 🏗️ Architecture
+
+```
+              INTERNET
+                  |
+                  v
+             EC2 INSTANCE
+                  |
+            Nginx / Node.js
+                  |
+                  v
+        Career Application Form
+                  |
+                  v
+          Express Backend
+                  |
+                  v
+              DynamoDB
+                  |
+                  v
+          Application Records
+```
+
+---
+
+## ✨ Features
+
+- Responsive, modern career/job application form (HTML + CSS)
+- Sections for Personal Info, Career Info, Location, and Skills/Profile
+- Client-side validation and async submission (Fetch API, no page reload)
+- Express.js backend with a `/register` API endpoint
+- Data persisted in **DynamoDB** using the AWS SDK v3
+- No hardcoded AWS credentials — access via an **IAM Role** attached to EC2
+- Success/error messaging on the frontend
+
+---
+
+## 🧰 Tech Stack
+
+| Layer      | Technology                                  |
+|------------|----------------------------------------------|
+| Frontend   | HTML5, CSS3, Vanilla JavaScript               |
+| Backend    | Node.js, Express                              |
+| Database   | AWS DynamoDB                                  |
+| Hosting    | AWS EC2                                       |
+| SDK        | `@aws-sdk/client-dynamodb`, `@aws-sdk/lib-dynamodb` |
+| Auth       | AWS IAM Role (no static credentials)          |
+
+---
+
+## 📁 Project Structure
+
+```
+career-application-portal/
+│
+├── server.js
+├── package.json
+│
+└── public/
+    └── index.html
+```
+
+---
+
+## 📋 Prerequisites
+
+- An AWS account
+- An EC2 instance (Amazon Linux) with SSH access
+- Basic familiarity with the AWS Console
+
+---
+
+## 🚀 Setup Guide
+
+### 1. Create the DynamoDB Table
+
+In the AWS Console:
+
+`DynamoDB → Tables → Create table`
+
+- **Table name:** `Students`
+- **Partition key:** `studentId` (String)
+- Leave the remaining settings as default
+
+### 2. EC2 Setup
+
+SSH into your instance:
+
+```bash
+ssh -i your-key.pem ec2-user@YOUR_EC2_PUBLIC_IP
+```
+
+Install Node.js:
+
+```bash
+sudo dnf update -y
+sudo dnf install -y nodejs npm
+```
+
+Verify installation:
+
+```bash
+node -v
+npm -v
+```
+
+Create and initialize the project:
+
+```bash
+mkdir career-application-portal
+cd career-application-portal
+npm init -y
+npm install express @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb
+```
+
+### 3. Add the Backend (`server.js`)
+
+Create `server.js` and set up an Express app that:
+
+- Serves the static frontend from `public/`
+- Exposes a `POST /register` endpoint
+- Writes submitted fields (name, email, mobile, dob, position, experience, qualification, salary, city, address, skills, linkedin, workMode, about) to the `Students` DynamoDB table using `PutCommand`
+- Generates a unique `studentId` per submission with `crypto.randomUUID()`
+
+### 4. Add the Frontend (`public/index.html`)
+
+Create the `public` folder and `index.html` with the Career Application form (Personal Information, Career Information, Location, and Skills & Profile sections), styled with the included CSS for a polished, professional look.
+
+### 5. Grant EC2 Permission to DynamoDB (IAM Role)
+
+Avoid hardcoding AWS keys. Instead, attach an IAM Role:
+
+`IAM → Roles → Create role`
+
+- **Trusted entity:** AWS service
+- **Use case:** EC2
+- **Policy:** `AmazonDynamoDBFullAccess` (for learning/testing — scope this down for production)
+- **Role name:** e.g. `EC2-DynamoDB-Role`
+
+Attach the role to your instance:
+
+`EC2 → Instances → Select instance → Actions → Security → Modify IAM role → EC2-DynamoDB-Role`
+
+### 6. Run the Application
+
+```bash
+cd ~/career-application-portal
+node server.js
+```
+
+You should see:
+
+```
+Server running on port 3000
+```
+
+### 7. Open the Port in the Security Group
+
+`EC2 → Security Groups → Inbound rules → Edit inbound rules`
+
+- **Type:** Custom TCP
+- **Port:** 3000
+- **Source:** `0.0.0.0/0` (restrict this for production, or front with Nginx/a load balancer)
+
+### 8. Access the App
+
+```
+http://YOUR-EC2-PUBLIC-IP:3000
+```
+
+### 9. Verify Data in DynamoDB
+
+`AWS Console → DynamoDB → Tables → Students → Explore table items`
+
+You should see submitted records with fields like `studentId`, `name`, `email`, `position`, `city`, `createdAt`, etc.
+
+---
+
+## 🔐 Security Notes
+
+- Never commit AWS access keys/secrets to source control.
+- Use IAM Roles for EC2-to-AWS-service access instead of static credentials.
+- Restrict inbound Security Group rules in production; place Nginx or a load balancer in front of the app instead of exposing the app port directly.
+
+---
+
+## 📚 What You'll Learn
+
+This project ties together several core AWS/backend concepts:
+
+- EC2 provisioning and configuration
+- IAM Roles for secure, credential-free AWS access
+- Node.js/Express backend development
+- DynamoDB as a NoSQL data store
+- AWS SDK v3 usage (`DynamoDBClient`, `DynamoDBDocumentClient`)
+- Building and serving a responsive frontend
+
+---
+
+## 📄 License
+
+This project is provided for learning and demonstration purposes. Feel free to adapt it for your own use.
