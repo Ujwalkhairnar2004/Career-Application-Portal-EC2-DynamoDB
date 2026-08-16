@@ -85,8 +85,8 @@ In the AWS Console:
 
 `DynamoDB → Tables → Create table`
 
-- **Table name:** `Students`
-- **Partition key:** `studentId` (String)
+- **Table name:** `CareerApplications`
+- **Partition key:** `applicationId` (String)
 - Leave the remaining settings as default
 
 ### 2. EC2 Setup
