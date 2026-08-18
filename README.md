@@ -203,6 +203,8 @@ This project ties together several core AWS/backend concepts:
 - Building and serving a responsive frontend
 
 ---
+## OUTPUT
+<img width="1366" height="768" alt="{3F838115-E105-457D-8C26-B6EA04C66375}" src="https://github.com/user-attachments/assets/9e73afcc-6bfb-423d-9d55-ee9636d0e5d6" />
 
 ## 📄 License
 
