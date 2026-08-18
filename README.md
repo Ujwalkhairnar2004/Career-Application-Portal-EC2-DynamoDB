@@ -204,7 +204,12 @@ This project ties together several core AWS/backend concepts:
 
 ---
 ## OUTPUT
+<img width="1366" height="768" alt="{087D4F47-453E-4F7E-934C-755D6E2A9561}" src="https://github.com/user-attachments/assets/e7f91dab-81e4-4354-9666-93e6437d6b7a" />
+<img width="1366" height="768" alt="{EDB00CB2-FB43-4C35-BC5F-A4C4A7ED203F}" src="https://github.com/user-attachments/assets/c79d025e-8d42-485a-9613-b11fc93c3eab" />
+<img width="1366" height="768" alt="{D33DD1C0-6097-4E10-AB39-E9B9FC9EF12F}" src="https://github.com/user-attachments/assets/bcd86d31-8b1f-4273-92b2-36c02d24a380" />
 <img width="1366" height="768" alt="{3F838115-E105-457D-8C26-B6EA04C66375}" src="https://github.com/user-attachments/assets/9e73afcc-6bfb-423d-9d55-ee9636d0e5d6" />
+<img width="1366" height="768" alt="{E623E376-FB31-47C7-A349-ED34AECBF9FD}" src="https://github.com/user-attachments/assets/5fc8b5af-d4b3-47d2-b68d-1ca6f77c1cbe" />
+<img width="1366" height="768" alt="{4FAE36DE-76AA-489F-9EEB-BD44B5F10119}" src="https://github.com/user-attachments/assets/a6072e37-9524-4a42-b5f1-a41ff013616c" />
 
 ## 📄 License
 
